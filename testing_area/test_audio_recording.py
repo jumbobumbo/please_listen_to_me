@@ -8,24 +8,30 @@ from time import sleep
 def callback(recognizer_instance, audio):
     # received audio data
     print("do we ever go in here?")
-    print("sphinx thinks you said: " + recognizer_instance.recognize_sphinx(audio, language="en-US", keyword_entries=None, grammar=None, show_all=True))
+    print(audio)
+    audio_data = recognizer_instance.recognize_sphinx(audio, language='en-US', keyword_entries=[("hello", 1.0)], grammar=None, show_all=False)
+    print(f"sphinx captured data: {audio_data}")
 
 
 r = sr.Recognizer()
-m = sr.Microphone()
+m = sr.Microphone(2, 16000)
 with m as source:
     print("Say something!")
     r.adjust_for_ambient_noise(source)
     print("listening")
 
+# wait
+sleep(2)
+
 # start listening in the background (note that we don't have to do this inside a `with` statement)
 stop_listening = r.listen_in_background(m, callback)
 
 # wait
-sleep(5)
+sleep(8)
 
 # calling this function requests that the background listener stop listening
 stop_listening(wait_for_stop=False)
 
 # let things tidy up
-sleep(2)
+sleep(5)
+
