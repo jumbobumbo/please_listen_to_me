@@ -4,17 +4,19 @@ from time import sleep
 # can we connect to our mic?
 "All I do is try and repeat what you said"
 
+
+def callback(recognizer_instance, audio):
+    # received audio data
+    print("do we ever go in here?")
+    print("sphinx thinks you said: " + recognizer_instance.recognize_sphinx(audio))
+
+
 r = sr.Recognizer()
-m = sr.Microphone(2)
+m = sr.Microphone()
 with m as source:
     print("Say something!")
-    audio = r.listen(source)
-
-
-def callback(recognizer, audio_data):
-    # received audio data, now we'll recognize it using Google Speech Recognition
-    print("sphinx thinks you said: " + recognizer.recognize_sphinx(audio_data))
-
+    r.adjust_for_ambient_noise(source)
+    print("listening")
 
 # start listening in the background (note that we don't have to do this inside a `with` statement)
 stop_listening = r.listen_in_background(m, callback)
