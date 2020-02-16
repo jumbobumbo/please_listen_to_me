@@ -8,7 +8,7 @@ from time import sleep
 def callback(recognizer_instance, audio):
     # received audio data
     print("do we ever go in here?")
-    print("sphinx thinks you said: " + recognizer_instance.recognize_sphinx(audio))
+    print("sphinx thinks you said: " + recognizer_instance.recognize_sphinx(audio, language="en-US", keyword_entries=None, grammar=None, show_all=True))
 
 
 r = sr.Recognizer()
