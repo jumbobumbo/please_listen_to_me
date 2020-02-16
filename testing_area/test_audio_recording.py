@@ -5,7 +5,7 @@ from time import sleep
 "All I do is try and repeat what you said"
 
 r = sr.Recognizer()
-m = sr.Microphone()
+m = sr.Microphone(2)
 with m as source:
     print("Say something!")
     audio = r.listen(source)
@@ -13,7 +13,7 @@ with m as source:
 
 def callback(recognizer, audio_data):
     # received audio data, now we'll recognize it using Google Speech Recognition
-    print("Google Speech Recognition thinks you said " + recognizer.recognize_sphinx(audio_data))
+    print("sphinx thinks you said: " + recognizer.recognize_sphinx(audio_data))
 
 
 # start listening in the background (note that we don't have to do this inside a `with` statement)
